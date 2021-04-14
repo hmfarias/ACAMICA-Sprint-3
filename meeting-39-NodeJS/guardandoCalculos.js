@@ -22,7 +22,7 @@ const guardarDatoArchivo = (nombreArchivo,texto) => {
 
 
 
-// OTRA MANERA
+// OTRA MANERA de hacerlo
 function calcular(func, num1, num2) {return func(num1, num2);}
 
 guardarDatoArchivo('calculos.txt', calcular(opers.suma, 7, 7));
