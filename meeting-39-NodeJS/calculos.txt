@@ -1,0 +1,53 @@
+suma 1+1 = suma 1+1 = 2
+resta 109 - 48  = resta 109-48 = 61
+multiplicacion 2*2 = multiplicación 2*2 = 4
+division 20 / 5 = división 20/5 = 4
+undefined
+undefined
+suma 1+1 = suma 1+1 = 2
+undefined
+suma 1+1 = suma 1+1 = 2
+suma 1+1 = 2
+suma 1+1 = 2
+resta 109-48 = 61
+multiplicación 2*2 = 4
+división 20/5 = 4
+suma 1+1 = 2
+resta 109-48 = 61
+multiplicación 2*2 = 4
+división 20/5 = 4
+undefined
+suma 1+1 = 2
+resta 109-48 = 61
+multiplicación 2*2 = 4
+división 20/5 = 4
+undefined
+suma 1+1 = 2
+resta 109-48 = 61
+multiplicación 2*2 = 4
+división 20/5 = 4
+undefined
+suma 1+1 = 2
+resta 109-48 = 61
+multiplicación 2*2 = 4
+división 20/5 = 4
+undefined
+suma 1+1 = 2
+resta 109-48 = 61
+multiplicación 2*2 = 4
+división 20/5 = 4
+suma 7+7 = 14
+suma 1+1 = 2
+resta 109-48 = 61
+multiplicación 2*2 = 4
+división 20/5 = 4
+suma 7+7 = 14
+suma 1+1 = 2
+resta 109-48 = 61
+multiplicación 2*2 = 4
+división 20/5 = 4
+suma 7+7 = 14
+suma 7+7 = 14
+resta 7-7 = 0
+multiplicación 7*7 = 49
+división 7/7 = 1

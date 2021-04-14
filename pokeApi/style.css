@@ -1,0 +1,120 @@
+.title {
+    background-color: blue;
+    color: white;
+    width: 90%;
+    height: 50px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+}
+
+.containerButtons {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+}
+
+.scrollButton {
+    margin: 7px 14px;
+    border-radius: 20%;
+    width: 50px;
+    height: 50px;
+    background-color: red;
+    border: none;
+    color: white;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+
+.buttonsPage {
+    width: 95%;
+    margin: auto;
+    display: flex;
+    overflow: scroll;
+    /* flex-wrap: wrap; */
+}
+
+.buttonsPage__button {
+    border-radius: 50%;
+    border: none;
+    background-color: blue;
+    color: white;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    font-size: 1rem;
+    margin: 7px 5px;
+}
+
+.buttonsPage__button:focus {
+    /* Draw a very noticeable focus style for
+       keyboard-focus on browsers that do support
+       :focus-visible */
+       outline: none;
+  }
+
+.buttonsPage__button__red {
+    background-color: red;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    text-align: center;
+    width: 50px;
+    min-width: 50px;
+    height: 50px;
+    font-size: 1rem;
+    margin: 7px 5px;
+}
+
+.title__paragraph {
+    font-size: 28px;
+    margin-left: 14px;
+
+}
+
+.containerPokemon {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin: auto;
+}
+
+.eachPokemon {
+    display: flex;
+    border: 1px solid grey;
+    margin: 7px 20px 7px 20px;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 10px 5px 5px grey;
+    border-radius: 1em/1em;
+}
+
+.containImg {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 7px;
+}
+
+.containImg p {
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.containImg img {
+    max-width: 100px;
+    max-height: 100px;
+    min-height: 100px;
+}
+
+.containInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.containInfo span {
+color: blue;
+font-weight: 700;
+}

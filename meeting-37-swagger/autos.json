@@ -1,0 +1,197 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "KAVAK API AUTOS",
+    "license": {
+      "name": "MIT"
+    }
+  },
+  "host": "api.kavak.com",
+  "basePath": "/v1",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "tags": [
+    {
+      "name": "autos",
+      "description": "Gestion de autos"
+    }
+  ],
+  "paths": {
+    "/autos": {
+      "get": {
+        "summary": "Listado de todos los autos",
+        "tags": [
+          "autos"
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "How many items to return at one time (max 100)",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "un arreglo paginado de autos",
+            "headers": {
+              "x-next": {
+                "type": "string",
+                "description": "A link to the next page of responses"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/Autos"
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear un auto",
+        "tags": [
+          "autos"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Objeto de tipo auto",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Auto"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Null response"
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Modificar un auto",
+        "tags": [
+          "autos"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Objeto de tipo auto",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Auto"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Null response"
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Listado de todos los autos",
+        "tags": [
+          "autos"
+        ],
+        "parameters": [
+          {
+            "name": "autoId",
+            "in": "query",
+            "description": "el id del auto que se desea eliminar",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "se elimino correctamente el auto"
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Auto": {
+      "required": [
+        "marca",
+        "modelo",
+        "disponible"
+      ],
+      "properties": {
+        "marca": {
+          "type": "string"
+        },
+        "modelo": {
+          "type": "string"
+        },
+        "fecha_fabricacion": {
+          "type": "string"
+        },
+        "cantidad_puertas": {
+          "type": "number"
+        },
+        "disponible": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Autos": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Auto"
+      }
+    },
+    "Error": {
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

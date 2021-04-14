@@ -1,0 +1,1039 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API Giphy",
+    "title": "API GHIPHY",
+    "version": "1.0.0"
+  },
+  "host": "api.giphy.com",
+  "basePath": "/v1",
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "tags": [
+    {
+      "name": "trending",
+      "description": "returns a list of the most relevant and engaging content each and every day"
+    }
+  ],
+  "paths": {
+    "/gifs/trending": {
+      "get": {
+        "summary": "obtain a list of the most relevant and engaging content each and every day",
+        "tags": [
+          "trending"
+        ],
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "rating",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "random_id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response (200 OK)",
+            "schema": {
+              "$ref": "#/definitions/Successfull_response"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Gif": {
+      "required": [
+        "type",
+        "id",
+        "slug",
+        "url",
+        "bitly_url",
+        "embed_url",
+        "username",
+        "source",
+        "rating",
+        "content_url",
+        "user",
+        "source_tld",
+        "source_post_url",
+        "update_datetime",
+        "create_datetime",
+        "import_datetime",
+        "trending_datetime",
+        "images",
+        "title"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "example": "gif"
+        },
+        "id": {
+          "type": "string",
+          "example": "YsTs5ltWtEhnq"
+        },
+        "slug": {
+          "type": "string",
+          "example": "confused-flying-YsTs5ltWtEhnq"
+        },
+        "url": {
+          "type": "string",
+          "example": "http://giphy.com/gifs/confused-flying-YsTs5ltWtEhnq"
+        },
+        "bitly_url": {
+          "type": "string",
+          "example": "http://gph.is/1gsWDcL"
+        },
+        "embed_url": {
+          "type": "string",
+          "example": "http://giphy.com/embed/YsTs5ltWtEhnq"
+        },
+        "username": {
+          "type": "string",
+          "example": "JoeCool4000"
+        },
+        "source": {
+          "type": "string",
+          "example": "http://www.reddit.com/r/reactiongifs/comments/1xpyaa/superman_goes_to_hollywood/"
+        },
+        "rating": {
+          "type": "string",
+          "example": "g"
+        },
+        "content_url": {
+          "type": "string"
+        },
+        "user": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/User"
+          }
+        },
+        "source_tld": {
+          "type": "string",
+          "example": "cheezburger.com"
+        },
+        "source_post_url": {
+          "type": "string",
+          "example": "http://cheezburger.com/5282328320"
+        },
+        "update_datetime": {
+          "type": "string",
+          "example": "2013-08-01 12:41:48"
+        },
+        "create_datetime": {
+          "type": "string",
+          "example": "2013-08-01 12:41:48"
+        },
+        "import_datetime": {
+          "type": "string",
+          "example": "2013-08-01 12:41:48"
+        },
+        "trending_datetime": {
+          "type": "string",
+          "example": "2013-08-01 12:41:48"
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Images"
+          }
+        },
+        "title": {
+          "type": "string",
+          "example": "Happy Dancing GIF"
+        }
+      }
+    },
+    "User": {
+      "required": [
+        "avatar_url",
+        "banner_url",
+        "profile_url",
+        "username",
+        "display_name"
+      ],
+      "properties": {
+        "avatar_url": {
+          "type": "string",
+          "example": "https://media1.giphy.com/avatars/election2016/XwYrZi5H87o6.gif"
+        },
+        "banner_url": {
+          "type": "string",
+          "example": "https://media4.giphy.com/avatars/cheezburger/XkuejOhoGLE6.jpg"
+        },
+        "profile_url": {
+          "type": "string",
+          "example": "https://giphy.com/cheezburger/"
+        },
+        "username": {
+          "type": "string",
+          "example": "joecool4000"
+        },
+        "message": {
+          "type": "string",
+          "example": "joecool4000"
+        }
+      }
+    },
+    "Images": {
+      "required": [
+        "fixed_height",
+        "fixed_height_still",
+        "fixed_height_downsampled",
+        "fixed_width",
+        "fixed_width_still",
+        "fixed_width_downsampled",
+        "fixed_height_small",
+        "fixed_height_small_still",
+        "fixed_width_small",
+        "fixed_width_small_still",
+        "downsized",
+        "downsized_still",
+        "downsized_large",
+        "downsized_medium",
+        "downsized_small",
+        "original",
+        "original_still",
+        "looping",
+        "preview",
+        "preview_gif"
+      ],
+      "properties": {
+        "fixed_height": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Fixed_height"
+          }
+        },
+        "fixed_height_still": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Fixed_height_still"
+          }
+        },
+        "fixed_height_downsampled": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Fixed_height_downsampled"
+          }
+        },
+        "fixed_width": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Fixed_width"
+          }
+        },
+        "fixed_width_still": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Fixed_width_still"
+          }
+        },
+        "fixed_width_downsampled": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Fixed_width_downsampled"
+          }
+        },
+        "fixed_height_small": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Fixed_height_small"
+          }
+        },
+        "fixed_height_small_still": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Fixed_height_small_still"
+          }
+        },
+        "fixed_width_small": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Fixed_width_small"
+          }
+        },
+        "fixed_width_small_still": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Fixed_width_small_still"
+          }
+        },
+        "downsized": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Downsized"
+          }
+        },
+        "downsized_still": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Downsized_still"
+          }
+        },
+        "downsized_large": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Downsized_large"
+          }
+        },
+        "downsized_medium": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Downsized_medium"
+          }
+        },
+        "downsized_small": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Downsized_small"
+          }
+        },
+        "original": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Original"
+          }
+        },
+        "original_still": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Original_still"
+          }
+        },
+        "looping": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Looping"
+          }
+        },
+        "preview": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Preview"
+          }
+        },
+        "preview_gif": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Preview_gif"
+          }
+        }
+      }
+    },
+    "Fixed_height": {
+      "required": [
+        "url",
+        "width",
+        "height",
+        "size",
+        "mp4",
+        "mp4_size",
+        "webp",
+        "webp_size"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "example": "https://media1.giphy.com/media/cZ7rmKfFYOvYI/200.gif"
+        },
+        "width": {
+          "type": "string",
+          "example": "320"
+        },
+        "height": {
+          "type": "string",
+          "example": "200"
+        },
+        "size": {
+          "type": "string",
+          "example": "32381"
+        },
+        "mp4": {
+          "type": "string",
+          "example": "https://media1.giphy.com/media/cZ7rmKfFYOvYI/200.mp4"
+        },
+        "mp4_size": {
+          "type": "string",
+          "example": "25123"
+        },
+        "webp": {
+          "type": "string",
+          "example": "https://media1.giphy.com/media/cZ7rmKfFYOvYI/200.webp"
+        },
+        "webp_size": {
+          "type": "string",
+          "example": "12321"
+        }
+      }
+    },
+    "Fixed_height_still": {
+      "required": [
+        "url",
+        "width",
+        "height"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "example": "https://media1.giphy.com/media/cZ7rmKfFYOvYI/200_s.gif"
+        },
+        "width": {
+          "type": "string",
+          "example": "320"
+        },
+        "height": {
+          "type": "string",
+          "example": "200"
+        }
+      }
+    },
+    "Fixed_height_downsampled": {
+      "required": [
+        "url",
+        "width",
+        "height",
+        "size",
+        "webp",
+        "webp_size"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "example": "https://media1.giphy.com/media/cZ7rmKfFYOvYI/200_d.gif"
+        },
+        "width": {
+          "type": "string",
+          "example": "320"
+        },
+        "height": {
+          "type": "string",
+          "example": "200"
+        },
+        "size": {
+          "type": "string",
+          "example": "32381"
+        },
+        "webp": {
+          "type": "string",
+          "example": "https://media1.giphy.com/media/cZ7rmKfFYOvYI/200_d.webp"
+        },
+        "webp_size": {
+          "type": "string",
+          "example": "12321"
+        }
+      }
+    },
+    "Fixed_width": {
+      "required": [
+        "url",
+        "width",
+        "height",
+        "size",
+        "mp4",
+        "mp4_size",
+        "webp",
+        "webp_size"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "example": "https://media1.giphy.com/media/cZ7rmKfFYOvYI/200w.gif"
+        },
+        "width": {
+          "type": "string",
+          "example": "320"
+        },
+        "height": {
+          "type": "string",
+          "example": "200"
+        },
+        "size": {
+          "type": "string",
+          "example": "32381"
+        },
+        "mp4": {
+          "type": "string",
+          "example": "https://media1.giphy.com/media/cZ7rmKfFYOvYI/200w.mp4"
+        },
+        "mp4_size": {
+          "type": "string",
+          "example": "25123"
+        },
+        "webp": {
+          "type": "string",
+          "example": "https://media1.giphy.com/media/cZ7rmKfFYOvYI/200w.webp"
+        },
+        "webp_size": {
+          "type": "string",
+          "example": "12321"
+        }
+      }
+    },
+    "Fixed_width_still": {
+      "required": [
+        "url",
+        "width",
+        "height"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "example": "https://media1.giphy.com/media/cZ7rmKfFYOvYI/200w_s.gif"
+        },
+        "width": {
+          "type": "string",
+          "example": "320"
+        },
+        "height": {
+          "type": "string",
+          "example": "200"
+        }
+      }
+    },
+    "Fixed_width_downsampled": {
+      "required": [
+        "url",
+        "width",
+        "height",
+        "size",
+        "webp",
+        "webp_size"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "example": "https://media1.giphy.com/media/cZ7rmKfFYOvYI/200w_d.gif"
+        },
+        "width": {
+          "type": "string",
+          "example": "320"
+        },
+        "height": {
+          "type": "string",
+          "example": "200"
+        },
+        "size": {
+          "type": "string",
+          "example": "32381"
+        },
+        "webp": {
+          "type": "string",
+          "example": "https://media1.giphy.com/media/cZ7rmKfFYOvYI/200w_d.webp"
+        },
+        "webp_size": {
+          "type": "string",
+          "example": "12321"
+        }
+      }
+    },
+    "Fixed_height_small": {
+      "required": [
+        "url",
+        "width",
+        "height",
+        "size",
+        "mp4",
+        "mp4_size",
+        "webp",
+        "webp_size"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "example": "https://media1.giphy.com/media/cZ7rmKfFYOvYI/100.gif"
+        },
+        "width": {
+          "type": "string",
+          "example": "320"
+        },
+        "height": {
+          "type": "string",
+          "example": "100"
+        },
+        "size": {
+          "type": "string",
+          "example": "32381"
+        },
+        "mp4": {
+          "type": "string",
+          "example": "https://media1.giphy.com/media/cZ7rmKfFYOvYI/100.mp4"
+        },
+        "mp4_size": {
+          "type": "string",
+          "example": "25123"
+        },
+        "webp": {
+          "type": "string",
+          "example": "https://media1.giphy.com/media/cZ7rmKfFYOvYI/100.webp"
+        },
+        "webp_size": {
+          "type": "string",
+          "example": "12321"
+        }
+      }
+    },
+    "Fixed_height_small_still": {
+      "required": [
+        "url",
+        "width",
+        "height"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "example": "https://media1.giphy.com/media/cZ7rmKfFYOvYI/100_s.gif"
+        },
+        "width": {
+          "type": "string",
+          "example": "320"
+        },
+        "height": {
+          "type": "string",
+          "example": "100"
+        }
+      }
+    },
+    "Fixed_width_small": {
+      "required": [
+        "url",
+        "width",
+        "height",
+        "size",
+        "mp4",
+        "mp4_size",
+        "webp",
+        "webp_size"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "example": "https://media1.giphy.com/media/cZ7rmKfFYOvYI/100w.gif"
+        },
+        "width": {
+          "type": "string",
+          "example": "100"
+        },
+        "height": {
+          "type": "string",
+          "example": "200"
+        },
+        "size": {
+          "type": "string",
+          "example": "32381"
+        },
+        "mp4": {
+          "type": "string",
+          "example": "https://media1.giphy.com/media/cZ7rmKfFYOvYI/100w.mp4"
+        },
+        "mp4_size": {
+          "type": "string",
+          "example": "25123"
+        },
+        "webp": {
+          "type": "string",
+          "example": "https://media1.giphy.com/media/cZ7rmKfFYOvYI/100w.webp"
+        },
+        "webp_size": {
+          "type": "string",
+          "example": "12321"
+        }
+      }
+    },
+    "Fixed_width_small_still": {
+      "required": [
+        "url",
+        "width",
+        "height"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "example": "https://media1.giphy.com/media/cZ7rmKfFYOvYI/100w_s.gif"
+        },
+        "width": {
+          "type": "string",
+          "example": "100"
+        },
+        "height": {
+          "type": "string",
+          "example": "200"
+        }
+      }
+    },
+    "Downsized": {
+      "required": [
+        "url",
+        "width",
+        "height",
+        "size"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "example": "https://media1.giphy.com/media/cZ7rmKfFYOvYI/giphy-downsized.gif"
+        },
+        "width": {
+          "type": "string",
+          "example": "320"
+        },
+        "height": {
+          "type": "string",
+          "example": "200"
+        },
+        "size": {
+          "type": "string",
+          "example": "12381"
+        }
+      }
+    },
+    "Downsized_still": {
+      "required": [
+        "url",
+        "width",
+        "height"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "example": "https://media1.giphy.com/media/cZ7rmKfFYOvYI/giphy-downsized_s.gif"
+        },
+        "width": {
+          "type": "string",
+          "example": "320"
+        },
+        "height": {
+          "type": "string",
+          "example": "200"
+        }
+      }
+    },
+    "Downsized_large": {
+      "required": [
+        "url",
+        "width",
+        "height",
+        "size"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "example": "https://media1.giphy.com/media/cZ7rmKfFYOvYI/giphy-downsized-large.gif"
+        },
+        "width": {
+          "type": "string",
+          "example": "320"
+        },
+        "height": {
+          "type": "string",
+          "example": "200"
+        },
+        "size": {
+          "type": "string",
+          "example": "12381"
+        }
+      }
+    },
+    "Downsized_medium": {
+      "required": [
+        "url",
+        "width",
+        "height",
+        "size"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "example": "https://media1.giphy.com/media/cZ7rmKfFYOvYI/giphy-downsized-medium.gif"
+        },
+        "width": {
+          "type": "string",
+          "example": "320"
+        },
+        "height": {
+          "type": "string",
+          "example": "200"
+        },
+        "size": {
+          "type": "string",
+          "example": "12381"
+        }
+      }
+    },
+    "Downsized_small": {
+      "required": [
+        "mp4",
+        "width",
+        "height",
+        "mp4_size"
+      ],
+      "properties": {
+        "mp4": {
+          "type": "string",
+          "example": "https://media1.giphy.com/media/cZ7rmKfFYOvYI/downsized_small.gif"
+        },
+        "width": {
+          "type": "string",
+          "example": "320"
+        },
+        "height": {
+          "type": "string",
+          "example": "200"
+        },
+        "mp4_size": {
+          "type": "string",
+          "example": "12381"
+        }
+      }
+    },
+    "Original": {
+      "required": [
+        "width",
+        "height",
+        "size",
+        "frames",
+        "mp4",
+        "mp4_size",
+        "webp",
+        "webp_size"
+      ],
+      "properties": {
+        "width": {
+          "type": "string",
+          "example": "320"
+        },
+        "height": {
+          "type": "string",
+          "example": "200"
+        },
+        "size": {
+          "type": "string",
+          "example": "12381"
+        },
+        "frames": {
+          "type": "string",
+          "example": "15"
+        },
+        "mp4": {
+          "type": "string",
+          "example": "https://media1.giphy.com/media/cZ7rmKfFYOvYI/giphy.mp4"
+        },
+        "mp4_size": {
+          "type": "string",
+          "example": "25123"
+        },
+        "webp": {
+          "type": "string",
+          "example": "https://media1.giphy.com/media/cZ7rmKfFYOvYI/giphy.webp"
+        },
+        "webp_size": {
+          "type": "string",
+          "example": "12321"
+        }
+      }
+    },
+    "Original_still": {
+      "required": [
+        "url",
+        "width",
+        "height"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "example": "https://media1.giphy.com/media/cZ7rmKfFYOvYI/giphy_s.gif"
+        },
+        "width": {
+          "type": "string",
+          "example": "320"
+        },
+        "height": {
+          "type": "string",
+          "example": "200"
+        }
+      }
+    },
+    "Looping": {
+      "required": [
+        "mp4"
+      ],
+      "properties": {
+        "mp4": {
+          "type": "string",
+          "example": "https://media1.giphy.com/media/cZ7rmKfFYOvYI/looping.mp4"
+        }
+      }
+    },
+    "Preview": {
+      "required": [
+        "mp4",
+        "mp4_size",
+        "width",
+        "height"
+      ],
+      "properties": {
+        "mp4": {
+          "type": "string",
+          "example": "https://media1.giphy.com/media/cZ7rmKfFYOvYI/giphy-preview.mp4"
+        },
+        "mp4_size": {
+          "type": "string",
+          "example": "20241"
+        },
+        "width": {
+          "type": "string",
+          "example": "320"
+        },
+        "height": {
+          "type": "string",
+          "example": "200"
+        }
+      }
+    },
+    "Preview_gif": {
+      "required": [
+        "url",
+        "width",
+        "height"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "example": "https://media1.giphy.com/media/cZ7rmKfFYOvYI/giphy-preview.gif"
+        },
+        "width": {
+          "type": "string",
+          "example": "320"
+        },
+        "height": {
+          "type": "string",
+          "example": "200"
+        }
+      }
+    },
+    "Gifs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Gif"
+      }
+    },
+    "Successfull_response": {
+      "required": [
+        "data",
+        "pagination",
+        "meta"
+      ],
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Gif"
+          }
+        },
+        "pagination": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Pagination"
+          }
+        },
+        "meta": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Meta"
+          }
+        }
+      }
+    },
+    "Pagination": {
+      "required": [
+        "offset",
+        "total_count",
+        "count"
+      ],
+      "properties": {
+        "offset": {
+          "type": "integer",
+          "format": "int32",
+          "example": "2591"
+        },
+        "total_count": {
+          "type": "integer",
+          "format": "int32",
+          "example": "250"
+        },
+        "count": {
+          "type": "integer",
+          "format": "int32",
+          "example": "25"
+        }
+      }
+    },
+    "Meta": {
+      "required": [
+        "msg",
+        "status",
+        "response_id"
+      ],
+      "properties": {
+        "msg": {
+          "type": "string",
+          "example": "OK"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "example": "200"
+        },
+        "response_id": {
+          "type": "string",
+          "example": "57eea03c72381f86e05c35d2"
+        }
+      }
+    },
+    "Error": {
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
