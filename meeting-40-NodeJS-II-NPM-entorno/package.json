@@ -1,0 +1,16 @@
+{
+  "name": "meeting-40-nodejs-ii",
+  "version": "1.0.0",
+  "description": "Primera aplicacion node",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "hmfarias",
+  "license": "ISC",
+  "dependencies": {
+    "cool-images": "^1.0.3",
+    "moment": "2.29.1",
+    "nodemon": "^2.0.7"
+  }
+}

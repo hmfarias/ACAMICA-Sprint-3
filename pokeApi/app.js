@@ -2,6 +2,7 @@
 // Medicion temperatura frontend :
 // usando el api https://pokeapi.co/
 // crear un dashboard de tarjetas de pokemon
+
 let limit = 25;
 let offset = 0;
 let pages = 0;
@@ -15,10 +16,10 @@ window.onload = function () {
 };
 
 
-let containerPokemon = document.getElementById('containerPokemon');
-let buttonsPage = document.getElementById('buttonsPage');
-let scrollLeftButton = document.getElementById('scrollLeftButton');
-let scrollRightButton = document.getElementById('scrollRightButton');
+let containerPokemon = document.getElementById('containerPokemon');//get div node for show pokemon's card
+let buttonsPage = document.getElementById('buttonsPage'); //get the div node where the paging buttons will be located
+let scrollLeftButton = document.getElementById('scrollLeftButton'); //get input node for scroll left
+let scrollRightButton = document.getElementById('scrollRightButton');//get input node for scroll right
 
 
 let totalPokemons = getPokemonsTotal();
@@ -90,7 +91,6 @@ totalPokemons.then((response) => {
     }
 });
 
-
 async function showPokemons() {
     try {
         let infoGeneral = await getPokemonsList();
@@ -145,45 +145,37 @@ async function showPokemons() {
                 </div>
             `;
             });
-
-
         });
     } catch (error) {
         console.error(error);
     }
 }
 
+//SCROLLING ELEMENTS ------------------------------------------------------
 var scrollAmount = 0;
 var scrollMin = 0;
 var scrollMax = buttonsPage.clientWidth;
 
-
-
 scrollRightButton.addEventListener('click' , () => {
-    // console.log('entra scroll right');
-    // buttonsPage.scrollLeft += 110;
-    // buttonsPage.scrollLeft += 110;
     buttonsPage.scrollTo({
         top: 0,
         left: Math.max(scrollAmount += 500, scrollMax),
         behavior: 'smooth'
       });
-
 });
 
-
 scrollLeftButton.addEventListener('click' , () => {
-    // console.log('entra scroll right');
-    // buttonsPage.scrollLeft -= 110;
-    // buttonsPage.scrollLeft -= 110;
     buttonsPage.scrollTo({
         top: 0,
         left: Math.max(scrollAmount -= 500, scrollMin),
         behavior: 'smooth'
       });
 });
+// END SCROLLING ELEMENTS ------------------------------------------------------
 
 
+
+//SERVICES --------------------------------------------------------------------
 // get all Pokemon list
 async function getPokemonsList() {
     const response = await fetch(URL_BASE_POKEMON);
@@ -191,12 +183,12 @@ async function getPokemonsList() {
     return listaPokemons;
 }
 
+// get Pokemon total elements
 async function getPokemonsTotal() {
     const response = await fetch(URL_BASE_POKEMON);
     const listaPokemons = await response.json();
     return listaPokemons.count;
 }
-
 
 //get single pokemon by name
 async function getPokemon(url) {
@@ -204,6 +196,7 @@ async function getPokemon(url) {
     const pokemon = await response.json();
     return pokemon;
 }
+//END SERVICES --------------------------------------------------------------------
 
 
 
