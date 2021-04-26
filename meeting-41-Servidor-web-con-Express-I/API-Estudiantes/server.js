@@ -103,6 +103,20 @@ server.put("/estudiantes/:id", (req,res)=> {
     res.status(200);
     res.json({ESTUDIANTES});
 })
+
+//delete
+server.delete('/estudiantes/:id', (req,res) => {
+  const index = ESTUDIANTES.findIndex((cel) => cel.id == req.params.id);
+  if (index >= 0) { //found item
+      const arrEliminado = ESTUDIANTES.splice(index, 1);
+      res.status(200);
+      res.json(arrEliminado);
+  } else {
+      res.status(400);
+      res.json({ error: "elemento no encontrado en la base de datos" });
+  }
+});
+
 //5. levantar el servidor
 server.listen(PORT, () => {
   console.log(`se ha iniciado el servidor en el puerto ${PORT}`);
