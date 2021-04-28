@@ -4,6 +4,7 @@
 const express = require("express");
 const compression = require("compression");
 const helmet = require("helmet");
+// const {logger, validarArray, validarBodyAutor, validarBodyLibro, existeAutor, existeLibro} = require("./middlewares");
 //cosnt otralibreria = require('otralibreria');
 
 //==========================================================================
@@ -51,25 +52,25 @@ function validarArray (req,res,next) {
 
 //VALIDAR BODY PARA AUTOR al hacer un POST
 function validarBodyAutor (req,res,next) {
-  let msgError ='';
-  !req.body.nombre ?msgError+='El nombre del autor es obligatorio. ': msgError = msgError;
-  !req.body.apellido ?msgError+='El apellido del autor es obligatorio. ': msgError = msgError;
-  !req.body.fechaDeNacimiento ?msgError+='La fecha de nacimiento del autor es obligatoria': msgError = msgError;
+  const msgError =[];
+  !req.body.nombre && msgError.push('El nombre del autor es obligatorio');
+  !req.body.apellido && msgError.push('El apellido del autor es obligatorio');
+  !req.body.fechaDeNacimiento && msgError.push('La fecha de nacimiento del autor es obligatoria');
   
-  msgError!=='' 
-    ?res.status(400).json({error: msgError})
+  msgError.length > 0 
+    ?res.status(400).json({error: msgError.join(',')})
     :next();
 }
 
 //VALIDAR BODY PARA LIBRO al hacer un POST
 function validarBodyLibro (req,res,next) {
-  let msgError ='';
-  !req.body.titulo ?msgError+='El titulo del libro es obligatorio. ': msgError = msgError;
-  !req.body.descripcion ?msgError+='La descripcion del libro es obligatoria. ': msgError = msgError;
-  !req.body.anioPublicacion ?msgError+='El año de publicación del libro es obligatorio': msgError = msgError;
+  const msgError =[];
+  !req.body.titulo && msgError.push('El titulo del libro es obligatorio');
+  !req.body.descripcion && msgError.push('La descripcion del libro es obligatoria');
+  !req.body.anioPublicacion && msgError.push('El año de publicación del libro es obligatorio');
   
-  msgError!=='' 
-    ?res.status(400).json({error: msgError})
+  msgError.length > 0 
+    ?res.status(400).json({error: msgError.join(',')})
     :next();
 }
 
@@ -158,9 +159,7 @@ const AUTORES = [
 //GET TODOS LOS AUTORES
 //localhost:3000/autores
 server.get("/autores", (req, res) => {
-  !AUTORES || AUTORES.length === 0
-  ? res.status(400).json({error:`no existen autores para mostrar`})
-  : res.status(200).json(AUTORES);
+   res.status(200).json(AUTORES);
 });
 
 // GET AUTOR POR ID
