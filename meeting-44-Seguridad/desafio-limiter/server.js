@@ -7,6 +7,8 @@ const helmet = require("helmet");
 // const {logger, validarArray, validarBodyAutor, validarBodyLibro, existeAutor, existeLibro} = require("./middlewares");
 //cosnt otralibreria = require('otralibreria');
 
+const limiter = limiterCustom();
+
 //==========================================================================
 //2. crear la instacia de express
 //==========================================================================
@@ -46,6 +48,59 @@ function validarArray(req, res, next) {
 	!AUTORES || AUTORES.length === 0
 		? res.status(400).json({ error: `no existen autores para mostrar` })
 		: next();
+}
+
+function limiterCustom() {
+	options = {
+		timeLimit: 0.25 * 60 * 1000, // tiempo en milisegundos durante el cual guardo las req
+		// minutos * 60 * 1000 - esta puesto en 15 segundos para probar
+		maxRequest: 3, // numero de requests antes de mandar Status 429 - esta puesto en 3
+		message: "Demasiadas peticiones. Intente de nuevo mas tarde",
+		statusCode: 429, // 429 status = Too Many Requests
+	};
+
+	// para guardar los datos de límite de velocidad y manejar los contadores
+	options.timeCountersManage = new timeCountersManage(options.timeLimit);
+
+	function rateLimit(req, res, next) {
+		const key = req.ip;
+		options.timeCountersManage.increment(key, function (counterReqIP) {
+			console.log(counterReqIP);
+			counterReqIP > options.maxRequest
+				? res.status(options.statusCode).json({ error: options.message })
+				: next();
+		});
+	}
+
+	return rateLimit;
+}
+//--------------------------
+//calcula el siguiente momento de reset en base al timeLimit asignado
+function nextReset(timeLimit) {
+	const now = new Date(); //genera algo como: 2021-05-02T21:14:28.432Z
+	console.log("Now time  : " + now);
+	let nextResetTime = now.setMilliseconds(now.getMilliseconds() + timeLimit); //transforma todo a milisegundos despues de sumar el timeLimit.
+	console.log("Next reset: " + now + timeLimit);
+	return nextResetTime;
+}
+
+function timeCountersManage(timeLimit) {
+	let countReqIP = {};
+	let resetTime = nextReset(timeLimit);
+
+	this.increment = function (key, callBack) {
+		countReqIP[key] ? countReqIP[key]++ : (countReqIP[key] = 1);
+		callBack(countReqIP[key]);
+	};
+
+	// reseteo el contador de request y asigno un nuevo timeLimit
+	this.reset = function () {
+		countReqIP = {};
+		resetTime = nextReset(timeLimit);
+	};
+
+	//reset del contador de request cuando se llega al timeLimit
+	const interval = setInterval(this.reset, timeLimit);
 }
 
 //MIDDLEWARES PARTICULARES-------------------------------------------------
@@ -107,6 +162,7 @@ server.use(compression());
 // server.use(logger);
 server.use(helmet());
 server.use(validarArray);
+server.use(limiter);
 
 //==========================================================================
 //3.2 definir constantes

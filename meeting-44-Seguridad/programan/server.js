@@ -4,13 +4,21 @@
 const express = require("express");
 const compression = require("compression");
 const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
 // const {logger, validarArray, validarBodyAutor, validarBodyLibro, existeAutor, existeLibro} = require("./middlewares");
 //cosnt otralibreria = require('otralibreria');
+
+const limiter = rateLimit({
+	windowMs: 60 * 60 * 1000, //one hour (ex: 15 * 60 * 100 = 15 minutes)
+	max: 5,
+	message: "muchas peticiones por ahora espere un minuto",
+});
 
 //==========================================================================
 //2. crear la instacia de express
 //==========================================================================
 const server = express();
+server.disable("x-powered-by");
 
 //==========================================================================
 //3. agregar middlewares globales
@@ -39,13 +47,6 @@ function logger(req, res, next) {
     ${JSON.stringify(params)}
     `);
 	next();
-}
-
-// VERIFICAR SI HAY DATOS EN EL ARRAY
-function validarArray(req, res, next) {
-	!AUTORES || AUTORES.length === 0
-		? res.status(400).json({ error: `no existen autores para mostrar` })
-		: next();
 }
 
 //MIDDLEWARES PARTICULARES-------------------------------------------------
@@ -107,6 +108,7 @@ server.use(compression());
 // server.use(logger);
 server.use(helmet());
 server.use(validarArray);
+server.use(limiter);
 
 //==========================================================================
 //3.2 definir constantes
@@ -216,7 +218,6 @@ server.delete("/autores/:id", existeAutor, (req, res) => {
 	const eliminado = AUTORES.splice(idxEliminar, 1);
 	res.status(200).json(eliminado);
 });
-
 //==========================================================================
 //RUTAS LIBROS
 //==========================================================================
