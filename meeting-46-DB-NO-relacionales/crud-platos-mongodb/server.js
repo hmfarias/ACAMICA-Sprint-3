@@ -1,21 +1,23 @@
+//==========================================================================
+//1. importar express y demas librerias
+//==========================================================================
 const express = require("express");
 const expressJwt = require("express-jwt");
 const jwt = require("jsonwebtoken");
 const helmet = require("helmet");
 const compression = require("compression");
 const rateLimit = require("express-rate-limit");
-const app = express();
-const {
-	validateAdmin,
-	validatePlateExists,
-	validatePlateBody,
-	validatePlateNotExists,
-} = require("./middlewares/index.js");
 const { User } = require("./models/Users");
 const { Plato } = require("./models/Platos");
-app.use(helmet());
-app.use(express.json());
-app.use(compression());
+
+//==========================================================================
+//2. crear la instacia de express
+//==========================================================================
+const app = express();
+
+//==========================================================================
+//3. agregar middlewares globales
+//==========================================================================
 
 const rateLimitPolicy = rateLimit({
 	message: "intente de nuevo mas tarde",
@@ -23,7 +25,20 @@ const rateLimitPolicy = rateLimit({
 	windowMs: 120 * 60 * 1000,
 });
 
-//1. proteger todos los endpoints menos el de login usando express-jwt como middleware global
+//==========================================================================
+// 3.1 crear middlewares propios de nuestra API
+//==========================================================================
+const {
+	validateAdmin,
+	validatePlateExists,
+	validatePlateBody,
+	validatePlateNotExists,
+} = require("./middlewares/index.js");
+
+//==========================================================================
+// usar las librerias
+//==========================================================================
+//mongo 1. proteger todos los endpoints menos el de login usando express-jwt como middleware global
 // por nada en la vida expongan esta cadena NADAAAAA!!!!
 const secretJWT = "poneralgosupercompicadoconnumerosycaracteres123+5";
 app.use(
@@ -32,8 +47,14 @@ app.use(
 		algorithms: ["HS256"],
 	}).unless({ path: ["/login"] })
 );
+app.use(express.json()); // este middleware nos convierte el json del body en objeto de js
+app.use(helmet());
+app.use(compression());
 
-//2. escribir el endpoint de login
+//==========================================================================
+//ENDPOINTS
+//==========================================================================
+//mongo 2. escribir el endpoint de login
 app.post("/login", async (req, res) => {
 	const emailPost = req.body.email;
 	const passwordPost = req.body.password;
@@ -47,7 +68,7 @@ app.post("/login", async (req, res) => {
 			error: "usuario o contrasena invalida",
 		});
 	} else {
-		//3. crear el token
+		//mongo 3. crear el token
 		const token = jwt.sign(
 			{
 				name: usuarioValidado.name,
@@ -62,7 +83,9 @@ app.post("/login", async (req, res) => {
 		res.status(200).json({ token });
 	}
 });
-//4. escribir endpoints el resto
+
+//mongo 4. escribir endpoints el resto
+//PRUEBA INFO SEGURA
 app.get("/seguro", validateAdmin, (req, res) => {
 	res.json({
 		data: `data muy segura a nombre de ${req.user.name} ${req.user.lastname} - email: ${req.user.email}`,
@@ -87,10 +110,6 @@ app.post("/platos", validatePlateBody, validatePlateExists, (req, res) => {
 	const newPlato = new Plato(plato);
 	newPlato.save();
 	res.status(200).json(newPlato);
-});
-
-app.listen(3000, () => {
-	console.log("servidor iniciado");
 });
 
 //PUT
@@ -127,4 +146,11 @@ app.delete("/platos/:id", validatePlateNotExists, async (req, res) => {
 	} catch (error) {
 		console.log(error);
 	}
+});
+
+//==========================================================================
+//5. levantar el servidor
+//==========================================================================
+app.listen(3000, () => {
+	console.log("servidor iniciado");
 });

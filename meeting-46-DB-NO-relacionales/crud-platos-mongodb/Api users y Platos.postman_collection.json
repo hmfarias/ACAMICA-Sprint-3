@@ -1,0 +1,196 @@
+{
+	"info": {
+		"_postman_id": "ed233f89-58cf-40cd-814a-06a5b4e66b38",
+		"name": "Api users y Platos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"santi@gmail.com\",\n\t\"password\": \"1234\"\n}\n\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Prueba info segura",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FudGlhZ28iLCJsYXN0bmFtZSI6IkNpcmNvIiwiZW1haWwiOiJzYW50aUBnbWFpbC5jb20iLCJob2JiaWVzIjpbImJpY2kiLCJiYWlsZSJdLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjIwNTc2NTY1LCJleHAiOjE2MjA1ODAxNjV9.PPNjsyLl5UlQCvRJvs2ZNpZTtm18gAp5-z5r1C4SgfM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/seguro",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"seguro"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar platos",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FudGlhZ28iLCJsYXN0bmFtZSI6IkNpcmNvIiwiZW1haWwiOiJzYW50aUBnbWFpbC5jb20iLCJob2JiaWVzIjpbImJpY2kiLCJiYWlsZSJdLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjIwNTc2NTY1LCJleHAiOjE2MjA1ODAxNjV9.PPNjsyLl5UlQCvRJvs2ZNpZTtm18gAp5-z5r1C4SgfM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/platos",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"platos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar un nuevo plato",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FudGlhZ28iLCJsYXN0bmFtZSI6IkNpcmNvIiwiZW1haWwiOiJzYW50aUBnbWFpbC5jb20iLCJob2JiaWVzIjpbImJpY2kiLCJiYWlsZSJdLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjIwNTc2NTY1LCJleHAiOjE2MjA1ODAxNjV9.PPNjsyLl5UlQCvRJvs2ZNpZTtm18gAp5-z5r1C4SgfM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"plato\": \"ravioles\",\n\t\"precio\": 500,\n\t\"tipoPlato\": \"pastas\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/platos",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"platos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar un plato",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FudGlhZ28iLCJsYXN0bmFtZSI6IkNpcmNvIiwiZW1haWwiOiJzYW50aUBnbWFpbC5jb20iLCJob2JiaWVzIjpbImJpY2kiLCJiYWlsZSJdLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjIwNTc2NTY1LCJleHAiOjE2MjA1ODAxNjV9.PPNjsyLl5UlQCvRJvs2ZNpZTtm18gAp5-z5r1C4SgfM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"precio\": 700\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/platos/6097fcd4e5e9230d2a31bfba",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"platos",
+						"6097fcd4e5e9230d2a31bfba"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar un plato",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FudGlhZ28iLCJsYXN0bmFtZSI6IkNpcmNvIiwiZW1haWwiOiJzYW50aUBnbWFpbC5jb20iLCJob2JiaWVzIjpbImJpY2kiLCJiYWlsZSJdLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjIwNTc2NTY1LCJleHAiOjE2MjA1ODAxNjV9.PPNjsyLl5UlQCvRJvs2ZNpZTtm18gAp5-z5r1C4SgfM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/platos/6097fdaa919e560d83e1513a",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"platos",
+						"6097fdaa919e560d83e1513a"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
