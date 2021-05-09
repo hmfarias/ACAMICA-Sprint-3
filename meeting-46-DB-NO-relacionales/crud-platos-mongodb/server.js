@@ -5,33 +5,24 @@ const helmet = require("helmet");
 const compression = require("compression");
 const rateLimit = require("express-rate-limit");
 const app = express();
-const { validarAdmin } = require("./middlewares/index.js");
+const {
+	validateAdmin,
+	validatePlateExists,
+	validatePlateBody,
+	validatePlateNotExists,
+} = require("./middlewares/index.js");
 const { User } = require("./models/Users");
 const { Plato } = require("./models/Platos");
 app.use(helmet());
 app.use(express.json());
 app.use(compression());
+
 const rateLimitPolicy = rateLimit({
 	message: "intente de nuevo mas tarde",
 	max: 10,
-	windowMs: 60 * 1000,
+	windowMs: 120 * 60 * 1000,
 });
-const users = [
-	{
-		username: "fede2021",
-		password: "pass123",
-		rol: "admin",
-		email: "fede@gmail.com",
-		admin: true,
-	},
-	{
-		username: "marcelo2021",
-		password: "pass123",
-		rol: "user",
-		email: "marcelo@gmail.com",
-		admin: false,
-	},
-];
+
 //1. proteger todos los endpoints menos el de login usando express-jwt como middleware global
 // por nada en la vida expongan esta cadena NADAAAAA!!!!
 const secretJWT = "poneralgosupercompicadoconnumerosycaracteres123+5";
@@ -42,25 +33,10 @@ app.use(
 	}).unless({ path: ["/login"] })
 );
 
-// function validarAdmin(req, res, next) {
-// 	console.log("req.user"); // en req.user viene todo lo firmado en el token hecho en login
-// 	console.log(req.user);
-// 	if (!req.user.admin) {
-// 		res.status(401).json({
-// 			error: "el usuario No es ADMINISTRADOR",
-// 		});
-// 	} else {
-// 		next();
-// 	}
-// }
-
 //2. escribir el endpoint de login
 app.post("/login", async (req, res) => {
 	const emailPost = req.body.email;
 	const passwordPost = req.body.password;
-	// const usuarioValidado = users.find(
-	// 	(user) => user.username == usernamePost && user.password == passwordPost
-	// );
 	const usuarioValidado = await User.findOne({
 		email: emailPost,
 		password: passwordPost,
@@ -74,11 +50,6 @@ app.post("/login", async (req, res) => {
 		//3. crear el token
 		const token = jwt.sign(
 			{
-				// username: usuarioValidado.username,
-				// rol: usuarioValidado.rol,
-				// email: usuarioValidado.email,
-				// algomas: "algomas",
-				// admin: usuarioValidado.admin,
 				name: usuarioValidado.name,
 				lastname: usuarioValidado.lastname,
 				email: usuarioValidado.email,
@@ -92,7 +63,7 @@ app.post("/login", async (req, res) => {
 	}
 });
 //4. escribir endpoints el resto
-app.get("/seguro", validarAdmin, (req, res) => {
+app.get("/seguro", validateAdmin, (req, res) => {
 	res.json({
 		data: `data muy segura a nombre de ${req.user.name} ${req.user.lastname} - email: ${req.user.email}`,
 	});
@@ -107,13 +78,12 @@ app.get("/platos", (req, res) => {
 
 //POST NUEVO PLATO
 //localhost:3000/platos
-app.post("/platos", (req, res) => {
+app.post("/platos", validatePlateBody, validatePlateExists, (req, res) => {
 	const plato = {
 		plato: req.body.plato,
 		precio: req.body.precio,
 		tipoPlato: req.body.tipoPlato,
 	};
-
 	const newPlato = new Plato(plato);
 	newPlato.save();
 	res.status(200).json(newPlato);
@@ -121,4 +91,40 @@ app.post("/platos", (req, res) => {
 
 app.listen(3000, () => {
 	console.log("servidor iniciado");
+});
+
+//PUT
+//localhost:3000/platos
+app.put("/platos/:id", validatePlateNotExists, async (req, res) => {
+	const platePutId = req.params.id;
+	try {
+		const plateExists = await Plato.findOne({
+			_id: platePutId,
+		});
+		plateExists.plato = !req.body.plato ? plateExists.plato : req.body.plato;
+		plateExists.precio = !req.body.precio
+			? plateExists.precio
+			: req.body.precio;
+		plateExists.tipoPlato = !req.body.tipoPlato
+			? plateExists.tipoPlato
+			: req.body.tipoPlato;
+		plateExists.save();
+		res.status(200).json(plateExists);
+	} catch (error) {
+		console.log(error);
+	}
+});
+
+//DELETE
+//localhost:3000/platos
+app.delete("/platos/:id", validatePlateNotExists, async (req, res) => {
+	const idPlateDelete = req.params.id;
+	try {
+		await Plato.deleteOne({
+			_id: idPlateDelete,
+		});
+		res.status(200).json(idPlateDelete);
+	} catch (error) {
+		console.log(error);
+	}
 });
