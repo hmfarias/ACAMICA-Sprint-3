@@ -259,6 +259,238 @@
           }
         }
       }
+    },
+    "/gifs/traslate": {
+      "get": {
+        "summary": "GIPHY Translate converts words and phrases to the perfect GIF or Sticker using GIPHY's special sauce algorithm. This feature is best exhibited in GIPHY's Slack integration.",
+        "tags": [
+          "Translate Endpoint"
+        ],
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "query",
+            "description": "GIPHY API Key.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "s",
+            "in": "query",
+            "description": "Search term.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "weirdness",
+            "in": "query",
+            "description": "Value from 0-10 which makes results weirder as you go up the scale.",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "random_id",
+            "in": "query",
+            "description": "An ID/proxy for a specific user.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response (200 OK)",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Successfull_response_get_id"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/gifs/random": {
+      "get": {
+        "summary": "GIPHY Random lets you add some weirdness to the conversation by returning a single random GIF or Sticker related to the word or phrase entered. If no tag is specified, the GIF or Sticker returned is completely random.",
+        "tags": [
+          "Random Endpoint"
+        ],
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "query",
+            "description": "GIPHY API Key.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "tag",
+            "in": "query",
+            "description": "Filters results by specified tag.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "rating",
+            "in": "query",
+            "description": "Filters results by [specified rating](https://developers.giphy.com/docs/optional-settings/#rating). If you do not specify a rating, you will receive results from all possible ratings.",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "random_id",
+            "in": "query",
+            "description": "An ID/proxy for a specific user.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response (200 OK)",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Successfull_response_get_id"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/randomid": {
+      "get": {
+        "summary": "GIPHY Random ID Endpoint allows GIPHY to generate a unique ID you can assign to each new user in your app.\nTo get the most out of Random ID, we recommend sending the random_id param with all compatible endpoints. This lets us adjust the API response to your users’ preferences and improve their GIF experience while maintaining their privacy.",
+        "tags": [
+          "Random ID Endpoint"
+        ],
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "query",
+            "description": "GIPHY API Key.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response (200 OK)",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Successfull_response_random_id"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/gifs": {
+      "post": {
+        "summary": "GIPHY Upload allows you to upload your content programmatically on GIPHY.com. We accept animated GIFs or video files up to 100MB.\n\nNote: If you're using a rate-limited key assigned by the developer portal, you will not be able to specify a GIPHY channel username to your request and you will be limited to 10 uploads per day. To have these limits removed, you can apply for a production key from your dashboard. Only approved apps will be able to include a GIPHY channel username. You can use this endpoint to upload your content, attach tags, and other meta tag in a single HTTP or HTTPS POST request.",
+        "tags": [
+          "Upload Endpoint"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "api_key",
+            "required": true,
+            "description": "GIPHY API Key.",
+            "type": "string"
+          },
+          {
+            "name": "username",
+            "in": "query",
+            "description": "Your assigned username (required for approved apps only).",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "file",
+            "in": "query",
+            "description": "The animated GIF or video file you'd like to upload. (Local file resource, required if no source_image_url supplied).",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "source_image_url",
+            "in": "query",
+            "description": "The URL for the image or video you wish to upload (required if no file parameter specified).",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "tags",
+            "in": "query",
+            "description": "A comma delimited list of tags to be applied to the upload.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "source_post_url",
+            "in": "query",
+            "description": "The URL of the source of the asset.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response (200 OK)",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Meta"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/gifs/categories": {
+      "get": {
+        "summary": "Providers users a list of Gif categories on the GIPHY network.",
+        "tags": [
+          "Categories API"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "api_key",
+            "required": true,
+            "description": "GIPHY API Key.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response (200 OK)",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Successfull_response_category"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -1166,6 +1398,33 @@
         }
       }
     },
+    "Successfull_response_category": {
+      "required": [
+        "data",
+        "pagination",
+        "meta"
+      ],
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Category"
+          }
+        },
+        "pagination": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Pagination"
+          }
+        },
+        "meta": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Meta"
+          }
+        }
+      }
+    },
     "Successfull_response_get_id": {
       "required": [
         "data",
@@ -1176,6 +1435,21 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/Gif"
+          }
+        },
+        "meta": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Meta"
+          }
+        }
+      }
+    },
+    "Successfull_response_random_id": {
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/RandomID"
           }
         },
         "meta": {
@@ -1229,6 +1503,61 @@
         "response_id": {
           "type": "string",
           "example": "57eea03c72381f86e05c35d2"
+        }
+      }
+    },
+    "RandomID": {
+      "required": [
+        "random_id"
+      ],
+      "properties": {
+        "random_id": {
+          "type": "string",
+          "example": "3640f6095c9a1f0f4e544b764d238b25"
+        }
+      }
+    },
+    "Category": {
+      "required": [
+        "name",
+        "name_encoded",
+        "subcategories",
+        "gif"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "category 1"
+        },
+        "name_encoded": {
+          "type": "string",
+          "example": "category1"
+        },
+        "subcategories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SubCategories"
+          }
+        },
+        "gif": {
+          "type": "string",
+          "example": "3640f6095c9a1f0f4e544b764d238b25"
+        }
+      }
+    },
+    "SubCategories": {
+      "required": [
+        "name",
+        "name_encoded"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "sub category 1"
+        },
+        "name_encoded": {
+          "type": "string",
+          "example": "subcategory1"
         }
       }
     },
