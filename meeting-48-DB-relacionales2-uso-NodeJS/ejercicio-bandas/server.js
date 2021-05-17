@@ -7,9 +7,11 @@ const jwt = require("jsonwebtoken");
 const helmet = require("helmet");
 const compression = require("compression");
 const rateLimit = require("express-rate-limit");
-const { User } = require("./models/Users");
-const { Banda } = require("./models/Bandas");
+const Usuarios = require("./models/Users");
+const Bandas = require("./models/Bandas");
 const db = require("./db/index");
+const { Op } = require("sequelize");
+const cors = require("cors");
 
 //==========================================================================
 //2. crear la instacia de express
@@ -40,7 +42,7 @@ const { response } = require("express");
 //==========================================================================
 // usar las librerias
 //==========================================================================
-//mongo 1. proteger todos los endpoints menos el de login usando express-jwt como middleware global
+//mysql 1. proteger todos los endpoints menos el de login usando express-jwt como middleware global
 // por nada en la vida expongan esta cadena NADAAAAA!!!!
 const secretJWT = "poneralgosupercompicadoconnumerosycaracteres123+5";
 // app.use(
@@ -52,11 +54,12 @@ const secretJWT = "poneralgosupercompicadoconnumerosycaracteres123+5";
 app.use(express.json()); // este middleware nos convierte el json del body en objeto de js
 app.use(helmet());
 app.use(compression());
+app.use(cors());
 
 //==========================================================================
 //ENDPOINTS
 //==========================================================================
-//mongo 2. escribir el endpoint de login
+//mysql 2. escribir el endpoint de login
 app.post("/login", async (req, res) => {
 	const emailPost = req.body.email;
 	const passwordPost = req.body.password;
@@ -70,7 +73,7 @@ app.post("/login", async (req, res) => {
 			error: "usuario o contrasena invalida",
 		});
 	} else {
-		//mongo 3. crear el token
+		//mysql 3. crear el token
 		const token = jwt.sign(
 			{
 				name: usuarioValidado.name,
@@ -86,7 +89,7 @@ app.post("/login", async (req, res) => {
 	}
 });
 
-//mongo 4. escribir endpoints el resto
+//mysql 4. escribir endpoints el resto
 
 //GET - TRAER TODAS LAS BANDAS
 //localhost:3000/bandas
@@ -100,6 +103,19 @@ app.get("/bandas", async (req, res) => {
 		res.status(500).json({ error: "Intente mas tarde..." });
 	}
 });
+
+//----------------------------sequelize---------------------------------
+//GET - TRAER TODAS LAS BANDAS V2
+//localhost:3000/bandas
+app.get("/bandasv2", async (req, res) => {
+	try {
+		const bandas = await Bandas.findAll();
+		res.status(200).json(bandas);
+	} catch (error) {
+		res.status(500).json({ error: "Intente mas tarde..." });
+	}
+});
+//----------------------------END sequelize---------------------------------
 
 //GET - TRAER BANDA/S POR PALABRA CLAVE
 //localhost:3000/bandas/buscar/unaPalabra
@@ -119,6 +135,26 @@ app.get("/bandas/buscar/:palabra", async (req, res) => {
 	}
 });
 
+//----------------------------sequelize---------------------------------
+//GET - TRAER BANDA/S POR PALABRA CLAVE - V2
+//localhost:3000/bandas/buscar/unaPalabra
+app.get("/bandasv2/buscar/:palabra", async (req, res) => {
+	const palabra = req.params.palabra;
+	try {
+		const bandas = await Bandas.findAll({
+			where: {
+				nombre: {
+					[Op.substring]: palabra,
+				},
+			},
+		});
+		res.status(200).json(bandas);
+	} catch (error) {
+		res.status(500).json({ error: "Intente mas tarde..." });
+	}
+});
+//---------------------------- END sequelize---------------------------------
+
 //GET - TRAER UNA BANDA POR ID
 //localhost:3000/bandas/idBanda
 app.get("/bandas/:idBanda", async (req, res) => {
@@ -133,6 +169,38 @@ app.get("/bandas/:idBanda", async (req, res) => {
 		res.status(500).json({ error: "Intente mas tarde..." });
 	}
 });
+
+//----------------------------sequelize---------------------------------
+//GET - TRAER UNA BANDA POR ID - V2
+//localhost:3000/bandas/idBanda
+app.get("/bandasv2/:idBanda", async (req, res) => {
+	const idBanda = req.params.idBanda;
+	try {
+		const bandas = await Bandas.findByPk(idBanda);
+		res.status(200).json(bandas);
+	} catch (error) {
+		res.status(500).json({ error: "Intente mas tarde..." });
+	}
+});
+//---------------------------- END sequelize---------------------------------
+
+//----------------------------sequelize---------------------------------
+//GET - TRAER BANDAS SOLISTAS - V2
+//localhost:3000/bandasv2/solista
+app.get("/bandasv2/solista/:numIntegrantes", async (req, res) => {
+	const integrantes = req.params.numIntegrantes;
+	try {
+		const bandas = await Bandas.findAll({
+			where: {
+				integrantes: integrantes,
+			},
+		});
+		res.status(200).json(bandas);
+	} catch (error) {
+		res.status(500).json({ error: "Intente mas tarde..." });
+	}
+});
+//---------------------------- END sequelize---------------------------------
 
 //POST - AGREGAR UNA BANDA
 //localhost:3000/bandas
@@ -156,6 +224,26 @@ app.post("/bandas", async (req, res) => {
 		res.status(500).json({ error: "Intente mas tarde..." });
 	}
 });
+
+//----------------------------sequelize---------------------------------
+//POST - AGREGAR UNA BANDA - V2
+//localhost:3000/bandasv2
+app.post("/bandasv2", async (req, res) => {
+	console.log("entra en agregar banda v2");
+	try {
+		const banda = await Bandas.create({
+			nombre: req.body.nombre,
+			integrantes: req.body.integrantes,
+			fecha_inicio: req.body.fecha_inicio,
+			fecha_separacion: req.body.fecha_separacion,
+			pais: req.body.pais,
+		});
+		res.status(200).json(banda);
+	} catch (error) {
+		res.status(500).json({ error: "Intente mas tarde..." });
+	}
+});
+//---------------------------- END sequelize---------------------------------
 
 //PUT - MODIFICAR UNA BANDA POR ID
 //localhost:3000/bandas/idBanda
@@ -182,6 +270,35 @@ app.put("/bandas/:idBanda", async (req, res) => {
 	}
 });
 
+//----------------------------sequelize---------------------------------
+//PUT - MODIFICAR UNA BANDA POR ID - V2
+//localhost:3000/bandas/idBanda
+app.put("/bandasv2/:idBanda", async (req, res) => {
+	const idBanda = req.params.idBanda;
+	try {
+		const banda = await Bandas.update(
+			{
+				nombre: req.body.nombre,
+				integrantes: req.body.integrantes,
+				fecha_inicio: req.body.fecha_inicio,
+				fecha_separacion: req.body.fecha_separacion,
+				pais: req.body.pais,
+			},
+			{
+				where: {
+					id: {
+						[Op.eq]: idBanda,
+					},
+				},
+			}
+		);
+		res.status(200).json(banda);
+	} catch (error) {
+		res.status(500).json({ error: "Intente mas tarde..." });
+	}
+});
+//----------------------------END sequelize---------------------------------
+
 //DELETE - ELIMINAR UNA BANDA POR ID
 //localhost:3000/bandas/idBanda
 app.delete("/bandas/:idBanda", async (req, res) => {
@@ -197,9 +314,31 @@ app.delete("/bandas/:idBanda", async (req, res) => {
 	}
 });
 
+//----------------------------sequelize---------------------------------
+//DELETE - ELIMINAR UNA BANDA POR ID - V2
+//localhost:3000/bandasv2/idBanda
+app.delete("/bandasv2/:idBanda", async (req, res) => {
+	const idBanda = req.params.idBanda;
+	try {
+		const banda = await Bandas.destroy({
+			where: {
+				id: {
+					[Op.eq]: idBanda,
+				},
+			},
+		});
+		res.status(200).json(banda);
+	} catch (error) {
+		res.status(500).json({ error: "Intente mas tarde..." });
+	}
+});
+//----------------------------END sequelize---------------------------------
+
 //==========================================================================
 //5. levantar el servidor
 //==========================================================================
 app.listen(3000, () => {
 	console.log("servidor iniciado");
 });
+
+//1:03

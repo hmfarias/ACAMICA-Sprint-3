@@ -1,0 +1,29 @@
+// Colores
+.theme-light {
+	--color-primary: #ffffff;
+	--color-secondary: #f3f5f8;
+	// --color-accent: #fd6f53;
+	--font-color: #572ee5;
+	--font-color-secondary: #000000;
+	--burguer-background: rgba(87, 46, 229, 0.9);
+	--createGif-color: #572ee5;
+	--modal-color: rgba(255, 255, 255, 0.95);
+	--animation-one: rgba(95, 95, 95, 0.3);
+	--animation-two: rgba(95, 95, 95);
+}
+.theme-dark {
+	--color-primary: #37383c;
+	--color-secondary: #222326;
+	// --color-accent: #12cdea;
+	--font-color: #ffffff;
+	--font-color-secondary: #ffffff;
+	--burguer-background: #000000;
+	--createGif-color: #37383c;
+	--modal-color: rgba(66, 62, 62, 0.95);
+	--animation-one: rgb(252, 248, 248);
+	--animation-two: rgb(250, 242, 242);
+}
+
+//margenes y paddings
+
+$margin-left-titles: 5%;

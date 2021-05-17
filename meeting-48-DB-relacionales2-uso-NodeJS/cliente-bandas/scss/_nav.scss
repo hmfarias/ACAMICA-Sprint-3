@@ -1,0 +1,102 @@
+// Navigation Bar -----------------------------------
+.navBar {
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-left: 5.86%;
+	padding-right: 6.93%;
+	padding-top: 29px;
+	margin-bottom: 24.2px;
+
+	.logo {
+		width: 56px;
+	}
+
+	.navMenu {
+		display: none;
+		position: absolute;
+		top: 90px;
+		left: 0;
+		width: 100%;
+		height: 484px;
+		background: var(--burguer-background);
+		z-index: 1000;
+
+		li {
+			font-family: "Montserrat", sans-serif;
+			font-weight: 700;
+			font-size: 15px;
+			color: #ffffff;
+			line-height: 60px;
+			text-align: center;
+			cursor: pointer;
+		}
+
+		.separator {
+			width: 10.93%;
+			height: 2px;
+			margin: auto;
+			border-top: 2px solid rgba(255, 255, 255, 0.5);
+		}
+
+		#createGifNav {
+			width: 54px;
+			height: 54px;
+			margin: auto;
+			background: var(--burguer-background);
+			border: 1px solid #ffffff;
+			border-radius: 50%;
+			text-align: center;
+			font-size: 36px;
+			font-weight: 100;
+			margin-top: 20px;
+			line-height: 51px;
+			&:active {
+				color: #ffffff;
+				background: #9cafc3;
+			}
+		}
+	}
+}
+
+@media only screen and (min-width: 1440px) {
+	.navBar {
+		align-items: flex-start;
+		padding-left: 0%;
+		padding-right: 0%;
+		padding-top: 20px;
+		width: 78.33%;
+		margin: auto auto 18px auto;
+
+		.logo {
+			max-width: 100px;
+			// display: none;
+		}
+
+		.navIcon {
+			display: none;
+		}
+
+		.navMenu {
+			display: flex;
+			position: unset;
+			width: 94.73%;
+			height: 0px;
+			justify-content: flex-end;
+
+			li {
+				font-weight: bold;
+				font-size: 13px;
+				color: var(--font-color);
+				line-height: 47px;
+				margin-left: 53px;
+				text-transform: uppercase;
+			}
+
+			.separator {
+				display: none;
+			}
+		}
+	}
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Bandas</title>
+</head>
+
+<body>
+    <header>
+        <nav id="navBar" class="navBar">
+            <a href="./index.html" class="logo"> <img id="logo" class="logo" src="./images/logo.png"
+                    alt="bandas logo"></a>
+            <ul id="navMenu" class="navMenu">
+                <li id="bandas">Bandas</li>
+                <li class="separator"></li>
+                <li id="albumes">Albumes</li>
+                <li class="separator"></li>
+                <li id="canciones">Canciones</li>
+
+            </ul>
+            <img class="navIcon" src="./images/burger.svg" alt="Menu" id="navIcon">
+        </nav>
+
+    </header>
+    <main>
+
+        <section class="sectionBandas">
+            <div class="container">
+                <br>
+                <br>
+                <a href="crearBanda.html" class="btn btn-primary" type="button">Agregar Banda</a>
+                <br>
+                <br>
+
+                <table class="table table-light">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Nombre</th>
+                            <th>Integrantes</th>
+                            <th>Fecha de Inicio</th>
+                            <th>Fecha de Separación</th>
+                            <th>País</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyBandas">
+                        <tr>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td><img src="./images/edit.png" alt="editar"> | <img src="./images/delete.png"
+                                    alt="borrar"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    <footer>
+
+    </footer>
+    <script src="./scripts/services.js" type="module"></script>
+    <script src="./scripts/index.js" type="module"></script>
+</body>
+
+</html>

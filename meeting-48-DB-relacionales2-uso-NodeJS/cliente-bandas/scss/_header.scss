@@ -1,0 +1,39 @@
+@import "./nav";
+
+header {
+	h1 {
+		width: 76.27%;
+		margin: 24.2px auto 0;
+		font-size: 25px;
+		color: var(--font-color);
+		text-align: center;
+		line-height: 33px;
+
+		span {
+			color: #50e3c2;
+		}
+	}
+	.imageHeader {
+		width: 72.8%;
+		display: block;
+		margin: 31px auto 0;
+	}
+
+	#ilustraHeader {
+		display: block;
+	}
+}
+
+@media only screen and (min-width: 1440px) {
+	header {
+		h1 {
+			width: 40%;
+			font-size: 35px;
+			line-height: 50px;
+			font-weight: bold;
+		}
+		.imageHeader {
+			width: 27.7%;
+		}
+	}
+}
