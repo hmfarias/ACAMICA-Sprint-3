@@ -33,9 +33,8 @@ const rateLimitPolicy = rateLimit({
 //==========================================================================
 const {
 	validateAdmin,
-	validatePlateExists,
-	validatePlateBody,
-	validatePlateNotExists,
+	validateBandExists,
+	validateBandBody,
 } = require("./middlewares/index.js");
 const { response } = require("express");
 
@@ -93,7 +92,7 @@ app.post("/login", async (req, res) => {
 
 //GET - TRAER TODAS LAS BANDAS
 //localhost:3000/bandas
-app.get("/bandas", async (req, res) => {
+app.get("/bandas", validateBandBody, async (req, res) => {
 	try {
 		const bandas = await db.query("SELECT * FROM bandas", {
 			type: db.QueryTypes.SELECT,
@@ -204,7 +203,7 @@ app.get("/bandasv2/solista/:numIntegrantes", async (req, res) => {
 
 //POST - AGREGAR UNA BANDA
 //localhost:3000/bandas
-app.post("/bandas", async (req, res) => {
+app.post("/bandas", validateBandBody, async (req, res) => {
 	try {
 		const banda = await db.query(
 			"INSERT INTO bandas (nombre, integrantes, fecha_inicio, fecha_separacion, pais) values (?,?,?,?,?)",
@@ -228,7 +227,7 @@ app.post("/bandas", async (req, res) => {
 //----------------------------sequelize---------------------------------
 //POST - AGREGAR UNA BANDA - V2
 //localhost:3000/bandasv2
-app.post("/bandasv2", async (req, res) => {
+app.post("/bandasv2", validateBandBody, async (req, res) => {
 	console.log("entra en agregar banda v2");
 	try {
 		const banda = await Bandas.create({

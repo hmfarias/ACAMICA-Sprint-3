@@ -34,7 +34,7 @@
             <div class="container">
                 <br>
                 <br>
-                <a href="crearBanda.html" class="btn btn-primary" type="button">Agregar Banda</a>
+                <a id="addBand" class="btn btn-primary" type="button">Agregar Banda</a>
                 <br>
                 <br>
 
@@ -65,6 +65,41 @@
                 </table>
             </div>
         </section>
+
+
+
+        <div id="modalWindow" class="modalWindow">
+            <img id="modalWindowClose" class="modalWindowClose" src="./images/close.svg" alt="cerrar">
+            <div class="container">
+
+                <form id="formBands" method="post" action="">
+                    <div class="form-group">
+                        <label for="nameBand">Nombre</label>
+                        <input id="nameBand" class="form-control" type="text" name="nombre">
+                    </div>
+                    <div class="form-group">
+                        <label for="membersBand">Integrantes</label>
+                        <input id="membersBand" class="form-control" type="number" name="integrantes">
+                    </div>
+                    <div class="form-group">
+                        <label for="startDateBand">Fecha de Inicio</label>
+                        <input id="startDateBand" class="form-control" type="date" name="fecha_inicio">
+                    </div>
+                    <div class="form-group">
+                        <label for="endDateBand">Fecha de Separación</label>
+                        <input id="endDateBand" class="form-control" type="date" name="fecha_separacion">
+                    </div>
+                    <div class="form-group">
+                        <label for="countryBand">Pais</label>
+                        <input id="countryBand" class="form-control" type="text" name="Pais">
+                    </div>
+                    <button id="saveBand" class="btn btn-primary" type="button">Guardar</button>
+
+                </form>
+            </div>
+        </div>
+
+
     </main>
     <footer>
 
