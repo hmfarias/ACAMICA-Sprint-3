@@ -38,8 +38,9 @@
                 <br>
                 <br>
 
-                <table class="table table-light">
-                    <thead class="thead-light">
+                <table class="table table-bordered table-striped ">
+                    <caption>List of Bands</caption>
+                    <thead class="thead-dark text-center">
                         <tr>
                             <th>#</th>
                             <th>Nombre</th>
@@ -69,21 +70,28 @@
 
 
         <div id="modalWindow" class="modalWindow">
-            <img id="modalWindowClose" class="modalWindowClose" src="./images/close.svg" alt="cerrar">
-            <div class="container">
+            <div class="container  h-75 mt-5 bg-info col-4 text-white">
+                <img id="modalWindowClose" class="modalWindowClose" src="./images/close.svg" alt="cerrar">
 
                 <form id="formBands" method="post" action="">
                     <div class="form-group">
                         <label for="nameBand">Nombre</label>
-                        <input id="nameBand" class="form-control" type="text" name="nombre">
+                        <input id="nameBand" placeholder="No puede estar vacío" class="form-control" type="text"
+                            name="nombre">
+
                     </div>
                     <div class="form-group">
                         <label for="membersBand">Integrantes</label>
-                        <input id="membersBand" class="form-control" type="number" name="integrantes">
+                        <input id="membersBand" placeholder="No puede estar vacío" class="form-control" type="number"
+                            name="integrantes">
                     </div>
                     <div class="form-group">
                         <label for="startDateBand">Fecha de Inicio</label>
-                        <input id="startDateBand" class="form-control" type="date" name="fecha_inicio">
+                        <input id="startDateBand" placeholder="No puede estar vacío" class="form-control" type="date"
+                            name="fecha_inicio">
+                        <small id="passwordHelpBlock" class="form-text text-muted col-form-label-sm">
+                            * Esta fecha no puede quedar en blanco
+                        </small>
                     </div>
                     <div class="form-group">
                         <label for="endDateBand">Fecha de Separación</label>
@@ -91,7 +99,8 @@
                     </div>
                     <div class="form-group">
                         <label for="countryBand">Pais</label>
-                        <input id="countryBand" class="form-control" type="text" name="Pais">
+                        <input id="countryBand" placeholder="No puede estar vacío" class="form-control" type="text"
+                            name="Pais">
                     </div>
                     <button id="saveBand" class="btn btn-primary" type="button">Guardar</button>
 

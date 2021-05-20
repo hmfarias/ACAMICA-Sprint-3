@@ -36,7 +36,7 @@ const {
 	validateBandExists,
 	validateBandBody,
 } = require("./middlewares/index.js");
-const { response } = require("express");
+//const { response } = require("express");
 
 //==========================================================================
 // usar las librerias
@@ -246,7 +246,7 @@ app.post("/bandasv2", validateBandBody, async (req, res) => {
 
 //PUT - MODIFICAR UNA BANDA POR ID
 //localhost:3000/bandas/idBanda
-app.put("/bandas/:idBanda", async (req, res) => {
+app.put("/bandas/:idBanda", validateBandBody, async (req, res) => {
 	const idBanda = req.params.idBanda;
 	try {
 		const banda = await db.query(
@@ -272,7 +272,7 @@ app.put("/bandas/:idBanda", async (req, res) => {
 //----------------------------sequelize---------------------------------
 //PUT - MODIFICAR UNA BANDA POR ID - V2
 //localhost:3000/bandas/idBanda
-app.put("/bandasv2/:idBanda", async (req, res) => {
+app.put("/bandasv2/:idBanda", validateBandBody, async (req, res) => {
 	const idBanda = req.params.idBanda;
 	try {
 		const banda = await Bandas.update(

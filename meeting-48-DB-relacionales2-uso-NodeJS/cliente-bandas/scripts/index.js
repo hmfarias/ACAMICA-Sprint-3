@@ -36,7 +36,7 @@ async function showBandas() {
                     <td>${fechaInicio}</td>
                     <td>${fechaSeparacion}</td>
                     <td>${element.pais}</td>
-                    <td><img class = "edit" key = "${element.id}" src="./images/edit.png" alt="editar"><img class = "delete" key = "${element.id}" src="./images/delete.png"
+                    <td><img class = "edit" key = "${element.id}" src="./images/edit.png" title = "Editar" alt="editar"><img class = "delete" key = "${element.id}" src="./images/delete.png" title = "Borrar"
                     alt="borrar"></td>
                     </tr>
                     `;
@@ -59,20 +59,19 @@ const addBand = document.getElementById("addBand");
 const modalWindow = document.getElementById("modalWindow");
 const saveBand = document.getElementById("saveBand");
 const formBands = document.getElementById("formBands");
-let modalWindowClose = document.getElementById("modalWindowClose");
+const modalWindowClose = document.getElementById("modalWindowClose");
 
 addBand.addEventListener("click", () => {
 	modalWindow.style.display = "flex";
 	saveBand.setAttribute("key", "post");
 });
 
-saveBand.addEventListener("click", (event) => {
-	console.log(event.target.getAttribute("key"));
+saveBand.addEventListener("click", async (event) => {
 	const nameBand = document.getElementById("nameBand").value;
 	const membersBand = parseInt(document.getElementById("membersBand").value);
 	const startDateBand = document.getElementById("startDateBand").value;
 	const endDate = document.getElementById("endDateBand").value;
-	const endDateBand = !endDate ? null : endDateBand;
+	const endDateBand = !endDate ? null : endDate;
 	const countryBand = document.getElementById("countryBand").value;
 	const bodyBandas = {
 		nombre: nameBand,
@@ -82,14 +81,22 @@ saveBand.addEventListener("click", (event) => {
 		pais: countryBand,
 	};
 	const jsonBody = JSON.stringify(bodyBandas);
-	console.log(jsonBody);
+
+	const action =
+		event.target.getAttribute("key") === "post" ? "agregó" : "modificó";
 
 	//if we are adding data call the postBand function, otherwise call the putBand function
-	console.log(jsonBody);
-	console.log(event.target.getAttribute("idBand"));
-	event.target.getAttribute("key") === "post"
-		? postBand(jsonBody)
-		: putBand(jsonBody, event.target.getAttribute("idBand"));
+	const response =
+		event.target.getAttribute("key") === "post"
+			? await postBand(jsonBody)
+			: await putBand(jsonBody, event.target.getAttribute("idBand"));
+	const info = await response.json();
+	if (response.ok) {
+		showBandas();
+		alert(`Se ${action} la banda "${nameBand}" exitosamente`);
+	} else {
+		alert(info.error);
+	}
 
 	modalWindow.style.display = "none";
 	formBands.reset();
@@ -104,44 +111,53 @@ modalWindow.addEventListener("click", (event) => {
 	) {
 		formBands.reset();
 		modalWindow.style.display = "none";
+		showBandas();
 	}
 });
 
 async function editBandFunction(button) {
 	const idBand = button.target.getAttribute("key");
+	const nameBand = document.getElementById("nameBand");
+	const membersBand = document.getElementById("membersBand");
+	const startDateBand = document.getElementById("startDateBand");
+	const endDateBand = document.getElementById("endDateBand");
+	const countryBand = document.getElementById("countryBand");
+
 	saveBand.setAttribute("key", "put");
 	saveBand.setAttribute("idBand", idBand);
-	console.log("entra edit");
 	try {
 		const info = await getBandId(idBand);
-		console.log(info);
-		document.getElementById("nameBand").value = info.nombre;
-		document.getElementById("membersBand").value = info.integrantes;
-		let fechaIni =
-			info.fecha_inicio.substr(0, 4) +
-			"-" +
-			info.fecha_inicio.substr(5, 2) +
-			"-" +
-			info.fecha_inicio.substr(8, 2);
-		document.getElementById("startDateBand").value = fechaIni;
-		let fechaSep =
-			info.fecha_separacion.substr(0, 4) +
-			"-" +
-			info.fecha_separacion.substr(5, 2) +
-			"-" +
-			info.fecha_separacion.substr(8, 2);
-		document.getElementById("endDateBand").value = fechaSep;
-		document.getElementById("countryBand").value = info.pais;
+		nameBand.value = info.nombre;
+		membersBand.value = info.integrantes;
+		const yearStart = info.fecha_inicio.substr(0, 4);
+		const monthStart = info.fecha_inicio.substr(5, 2);
+		const dayStart = info.fecha_inicio.substr(8, 2);
+		const dateStart = `${yearStart}-${monthStart}-${dayStart}`;
+		startDateBand.value = dateStart;
+		const dateFinish = !info.fecha_separacion
+			? ""
+			: info.fecha_separacion.substr(0, 4) +
+			  "-" +
+			  info.fecha_separacion.substr(5, 2) +
+			  "-" +
+			  info.fecha_separacion.substr(8, 2);
 
-		// var d = Date.parseDate("2005-10-05 12:13 am", "Y-m-d g:i a");
-		// document.write(d + "\n");
-		// var d = Date.parseDate("9/5/05", "n/j/y");
-		// document.write(d + "\n");
-	} catch (error) {}
+		endDateBand.value = dateFinish;
+		countryBand.value = info.pais;
+	} catch (error) {
+		console.log(error.message);
+	}
 
-	modalWindow.style.display = "flex";
+	modalWindow.style.display = "block";
 }
-function deleteBandFunction(button) {
-	deleteBand(button.target.getAttribute("key"));
+async function deleteBandFunction(button) {
+	const idBanda = button.target.getAttribute("key");
+	const response = await deleteBand(idBanda);
+	const info = await response.json();
+	if (response.ok) {
+		alert(`Se eliminó la banda "${idBanda}" exitosamente`);
+	} else {
+		alert(info.error);
+	}
 	showBandas();
 }

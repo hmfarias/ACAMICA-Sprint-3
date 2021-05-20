@@ -582,18 +582,11 @@ footer p {
 
 td > img {
   max-width: 25px;
-  margin-right: 15px;
+  margin-left: 20px;
 }
 
 .modalWindow {
   display: none;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
   position: absolute;
   width: 100%;
   height: 100%;
@@ -604,14 +597,13 @@ td > img {
 }
 
 .modalWindow .modalWindowClose {
-  -ms-flex-item-align: end;
-      align-self: flex-end;
-  margin-right: 20%;
-  margin-top: 66px;
+  margin-left: 90%;
+  margin-top: 30px;
 }
 
 .modalWindow form {
   width: 50%;
-  margin: auto;
+  height: 80%;
+  margin: 50px auto;
 }
 /*# sourceMappingURL=style.css.map */

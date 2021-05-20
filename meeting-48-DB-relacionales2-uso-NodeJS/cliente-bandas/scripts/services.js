@@ -37,14 +37,7 @@ export async function postBand(jsonBandas) {
 	};
 	try {
 		const response = await fetch(URL_BASE_BANDAS, requestOptions);
-		const info = await response.json();
-		console.log("info");
-		console.log(info);
-		if (response.ok) {
-			alert(`Se cargó la banda "${info.nombre}" exitosamente`);
-		} else {
-			alert(info.error);
-		}
+		return response;
 	} catch (error) {
 		console.error(error.message);
 	}
@@ -60,14 +53,7 @@ export async function putBand(jsonBandas, idBanda) {
 	};
 	try {
 		const response = await fetch(URL_BASE_PUT, requestOptions);
-		const info = await response.json();
-		console.log("info");
-		console.log(info);
-		if (response.ok) {
-			alert(`Se modificó la banda "${info.nombre}" exitosamente`);
-		} else {
-			alert(info.error);
-		}
+		return response;
 	} catch (error) {
 		console.error(error.message);
 	}
@@ -75,21 +61,13 @@ export async function putBand(jsonBandas, idBanda) {
 
 export async function deleteBand(idBanda) {
 	const URL_BASE_DELETE = `${URL_BASE_BANDAS}/${idBanda}`;
-	console.log(URL_BASE_DELETE);
 	const requestOptions = {
 		method: "DELETE",
 		redirect: "follow",
 	};
 	try {
 		const response = await fetch(URL_BASE_DELETE, requestOptions);
-		const info = await response.json();
-		console.log("info");
-		console.log(info);
-		if (response.ok) {
-			alert(`Se eliminó la banda "${idBanda}" exitosamente`);
-		} else {
-			alert(info.error);
-		}
+		return response;
 	} catch (error) {
 		console.error(error.message);
 	}
