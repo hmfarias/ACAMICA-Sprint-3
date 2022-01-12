@@ -2,12 +2,12 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "KAVAK API AUTOS",
+    "title": "NOMBRE EJEMPLO",
     "license": {
       "name": "MIT"
     }
   },
-  "host": "api.kavak.com",
+  "host": "api.EJEMPLO.com",
   "basePath": "/v1",
   "schemes": [
     "http"
@@ -21,15 +21,15 @@
   "tags": [
     {
       "name": "autos",
-      "description": "Gestion de autos"
+      "description": "Gestion de LANCHAS"
     }
   ],
   "paths": {
     "/autos": {
       "get": {
-        "summary": "Listado de todos los autos",
+        "summary": "Listado de todas las lanchas",
         "tags": [
-          "autos"
+          "lanchas"
         ],
         "parameters": [
           {
@@ -43,7 +43,7 @@
         ],
         "responses": {
           "200": {
-            "description": "un arreglo paginado de autos",
+            "description": "un arreglo paginado de lanchas",
             "headers": {
               "x-next": {
                 "type": "string",
@@ -51,7 +51,7 @@
               }
             },
             "schema": {
-              "$ref": "#/definitions/Autos"
+              "$ref": "#/definitions/Lanchas"
             }
           },
           "default": {
@@ -63,18 +63,18 @@
         }
       },
       "post": {
-        "summary": "Crear un auto",
+        "summary": "Crear una lancha",
         "tags": [
-          "autos"
+          "lanchas"
         ],
         "parameters": [
           {
             "in": "body",
             "name": "body",
-            "description": "Objeto de tipo auto",
+            "description": "Objeto de tipo lancha",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Auto"
+              "$ref": "#/definitions/Lancha"
             }
           }
         ],
@@ -91,18 +91,18 @@
         }
       },
       "put": {
-        "summary": "Modificar un auto",
+        "summary": "Modificar una lancha",
         "tags": [
-          "autos"
+          "lancha"
         ],
         "parameters": [
           {
             "in": "body",
             "name": "body",
-            "description": "Objeto de tipo auto",
+            "description": "Objeto de tipo lancha",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Auto"
+              "$ref": "#/definitions/Lancha"
             }
           }
         ],
@@ -119,15 +119,15 @@
         }
       },
       "delete": {
-        "summary": "Listado de todos los autos",
+        "summary": "Listado de todas las lanchas",
         "tags": [
-          "autos"
+          "lanchas"
         ],
         "parameters": [
           {
-            "name": "autoId",
+            "name": "lanchaId",
             "in": "query",
-            "description": "el id del auto que se desea eliminar",
+            "description": "el id de la lancha que se desea eliminar",
             "required": true,
             "type": "integer",
             "format": "int32"
@@ -135,7 +135,7 @@
         ],
         "responses": {
           "200": {
-            "description": "se elimino correctamente el auto"
+            "description": "se elimino correctamente la lancha"
           },
           "default": {
             "description": "unexpected error",
@@ -148,7 +148,7 @@
     }
   },
   "definitions": {
-    "Auto": {
+    "Lancha": {
       "required": [
         "marca",
         "modelo",
@@ -175,7 +175,7 @@
     "Autos": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/Auto"
+        "$ref": "#/definitions/Lancha"
       }
     },
     "Error": {
